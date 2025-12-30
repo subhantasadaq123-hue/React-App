@@ -1,0 +1,29 @@
+name: React App Build
+on:
+  push:
+     branches: [ main ]
+jobs:
+    build:
+       runs-on: ubuntu-latest
+
+       steps:
+          - name: Chechout Reposity
+            uses: actions/checkout@v6.0.1
+
+          - name: Setup Node JS
+            uses: actions/setup-node@v6.1.0
+            with: 
+                node-version: 22.x
+                cache: 'npm'
+
+          - name: Install Dependencies
+            run: npm install
+
+          - name: React App Build
+            run: npm run build
+
+          - name: Upload Buil on Artifacts
+            uses: actions/upload-artifact@v6.0.0
+            with:
+                name: React Build
+                path: build
